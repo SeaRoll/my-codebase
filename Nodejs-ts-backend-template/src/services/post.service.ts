@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import Post from '../models/post.model';
 
 export default class PostService {
@@ -25,7 +26,7 @@ export default class PostService {
    * Create a post
    * @param request request from rest controller
    */
-  async create(request:any) {
+  async create(request:Request) {
     const newPost = new Post({
       title: request.body.title,
       content: request.body.content
@@ -40,7 +41,7 @@ export default class PostService {
    * @param id id of post to update
    * @param request request from rest controller
    */
-  async update(id:string, request:any) {
+  async update(id:string, request:Request) {
     const updatePost = {
       title: request.body.title,
       content: request.body.content
