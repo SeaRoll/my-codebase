@@ -32,7 +32,7 @@ export default class PostService {
     });
 
     const postSave = await newPost.save();
-    return postSave;
+    return (postSave !== null ? 'success' : null);
   }
 
   /**
@@ -47,7 +47,7 @@ export default class PostService {
     };
 
     const postUpdate = await Post.updateOne({_id: id}, {$set: updatePost});
-    return postUpdate;
+    return (postUpdate !== null ? 'success' : null);
   }
 
   /**
@@ -56,6 +56,6 @@ export default class PostService {
    */
   async delete(id:string) {
     const postDelete = await Post.findOneAndDelete({_id: id});
-    return postDelete;
+    return (postDelete !== null ? 'success' : null);
   }
 }
