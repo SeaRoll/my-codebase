@@ -11,7 +11,7 @@ export default class PostService {
    */
   async getAll() {
     return await Post.find({})
-      .then(users => {this.statusCode = 200; return users})
+      .then(posts => {this.statusCode = 200; return posts})
       .catch(err => {this.statusCode = 400; return err});
   }
 
@@ -22,7 +22,7 @@ export default class PostService {
    */
   async getDetail(id:string) {
     return await Post.findById(id)
-      .then(user => {this.statusCode = 200; return user})
+      .then(post => {this.statusCode = 200; return post})
       .catch(err => {this.statusCode = 400; return err});
   }
 
