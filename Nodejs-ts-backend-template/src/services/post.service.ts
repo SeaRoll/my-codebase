@@ -3,13 +3,16 @@ import Post from '../models/post.model';
 
 export default class PostService {
 
+  statusCode = 200;
+
   /**
    * Gets all posts
    * @returns all posts
    */
   async getAll() {
-    const posts = await Post.find({});
-    return posts;
+    return await Post.find({})
+      .then(users => {this.statusCode = 200; return users})
+      .catch(err => {this.statusCode = 400; return err});
   }
 
   /**
@@ -18,8 +21,9 @@ export default class PostService {
    * @returns post with id
    */
   async getDetail(id:string) {
-    const post = await Post.findById(id);
-    return post;
+    return await Post.findById(id)
+      .then(user => {this.statusCode = 200; return user})
+      .catch(err => {this.statusCode = 400; return err});
   }
 
   /**
@@ -32,8 +36,9 @@ export default class PostService {
       content: request.body.content
     });
 
-    const postSave = await newPost.save();
-    return (postSave !== null ? 'success' : null);
+    return await newPost.save()
+      .then(res => {this.statusCode = 200; return res})
+      .catch(err => {this.statusCode = 400; return err});
   }
 
   /**
@@ -47,8 +52,9 @@ export default class PostService {
       content: request.body.content
     };
 
-    const postUpdate = await Post.updateOne({_id: id}, {$set: updatePost});
-    return (postUpdate !== null ? 'success' : null);
+    return await Post.updateOne({_id: id}, {$set: updatePost})
+      .then(res => {this.statusCode = 200; return res})
+      .catch(err => {this.statusCode = 400; return err});
   }
 
   /**
@@ -56,7 +62,8 @@ export default class PostService {
    * @param id id of post to delete
    */
   async delete(id:string) {
-    const postDelete = await Post.findOneAndDelete({_id: id});
-    return (postDelete !== null ? 'success' : null);
+    return await Post.findOneAndDelete({_id: id})
+      .then(res => {this.statusCode = 200; return res})
+      .catch(err => {this.statusCode = 400; return err});
   }
 }
